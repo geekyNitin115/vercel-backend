@@ -20,7 +20,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: '*',
+  origin: [
+    'https://frontendl-mauve.vercel.app',
+    'https://frontendl-git-main-nitin115s-projects.vercel.app',
+    'https://frontendl-22mfkx6kx-nitin115s-projects.vercel.app',
+    'http://localhost:5173', // for local development
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
