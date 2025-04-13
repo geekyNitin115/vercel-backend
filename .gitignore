@@ -1,0 +1,63 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Environment variables
+.env
+.env.development
+.env.test
+.env.production
+.env.local
+
+# Build outputs
+dist/
+build/
+
+# Cache and temp directories
+.npm
+.eslintcache
+.temp
+.cache
+.parcel-cache
+
+# Coverage and test directories
+coverage/
+.nyc_output/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Debug log from npm
+npm-debug.log*
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock 
