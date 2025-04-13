@@ -18,24 +18,30 @@ dotenv.config();
 
 const app = express();
 
+// Enable pre-flight across-the-board
+app.options('*', cors());
+
 // Middleware
-app.use(cors({
-  origin: [
-    'https://project-1sbb.vercel.app', // main frontend URL
-    'https://frontendl-mauve.vercel.app',
-    'https://frontendl-git-main-nitin115s-projects.vercel.app',
-    'https://frontendl-22mfkx6kx-nitin115s-projects.vercel.app',
-    'http://localhost:5173', // for local development
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Added OPTIONS for preflight
+const corsOptions = {
+  origin: true, // This will allow all origins and reflect the request origin
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly allow headers
-  exposedHeaders: ['Content-Range', 'X-Content-Range'] // If you need to expose any headers
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// Add OPTIONS handling for preflight requests
-app.options('*', cors()); // Enable pre-flight for all routes
+// Add CORS headers to all responses
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.header('origin'));
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/video-progress';
