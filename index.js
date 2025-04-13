@@ -21,15 +21,21 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: [
+    'https://project-1sbb.vercel.app', // main frontend URL
     'https://frontendl-mauve.vercel.app',
     'https://frontendl-git-main-nitin115s-projects.vercel.app',
     'https://frontendl-22mfkx6kx-nitin115s-projects.vercel.app',
     'http://localhost:5173', // for local development
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Added OPTIONS for preflight
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'], // Explicitly allow headers
+  exposedHeaders: ['Content-Range', 'X-Content-Range'] // If you need to expose any headers
 }));
 app.use(express.json());
+
+// Add OPTIONS handling for preflight requests
+app.options('*', cors()); // Enable pre-flight for all routes
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/video-progress';
